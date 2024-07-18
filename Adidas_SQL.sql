@@ -1,19 +1,20 @@
-create database adidas;
 
+-- making adidas database as default
 use adidas;
 
+-- to see the first 1000 rows to get an understanding of what we need to clean
 select * 
-from adidas.adidas_sales 
+from adidas_sales 
 limit 1000;
  
-select Total_Sales ,replace(Total_Sales,"$","")
-from adidas_sales;
+-- turning off sql safe update so that we can use UPDATE and DELETE statements without WHERE clause
 
 set sql_safe_updates=0;
 
 
 
--- To Remove the $ sign from the sales,Profit , Price per unit so we can make them in integers
+-- To Remove the "$" and "," sign from the sales, Profit , Price per unit so we can make them in integers
+
 update adidas_sales
 set Operating_Profit = replace(Operating_Profit,",","");
 
@@ -30,6 +31,9 @@ update adidas_sales
 set Total_Sales = replace(Total_Sales,"$","");
 
 
+
+-- Changing them into integers
+
 alter table adidas_sales
 modify Price_per_Unit int;
 
@@ -39,6 +43,10 @@ modify Operating_Profit int;
 alter table adidas_sales
 modify Total_Sales int;
 
+
+
+-- Removing "," from Units Sold so we can convert it into integer
+
 update adidas_sales
 set Units_Sold = replace(Units_Sold,",","");
 
@@ -46,12 +54,15 @@ alter table adidas_sales
 modify Units_Sold int;
 
 
+
 -- Changing Operating Margin to integer
+
 update adidas_sales
 set Operating_Margin = replace(Operating_Margin,"%","");
 
 alter table adidas_sales
 modify Operating_Margin int;
+
 
 -- Converting Invoice date to date format
 
@@ -61,6 +72,7 @@ limit 1000;
 
 update adidas_sales
 set Invoice_date = str_to_date(Invoice_Date,"%m/%d/%Y");
+
 
 
 -- Top 10 cities with highest sales
@@ -125,7 +137,7 @@ from adidas_sales
 group by Region, Product;
 
 
--- Best Sales method is In-Store
+-- Best Sales method 
 
 select Sales_method, sum(Total_Sales) as Sales
 from adidas_sales
@@ -134,7 +146,7 @@ order by Sales Desc
 limit 1;
 
 
--- Best Performing Product in terms of sales and in terms of unit sold - Mens Street Footwear
+-- Best Performing Product in terms of sales and in terms of unit sold 
 
 select Product ,sum(Total_Sales) as Sales,sum(Units_Sold) as Units
 from adidas_sales
