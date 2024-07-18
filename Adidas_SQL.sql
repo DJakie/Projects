@@ -11,7 +11,7 @@ limit 1000;
 
 set sql_safe_updates=0;
 
-
+/* DATA CLEANING */
 
 -- To Remove the "$" and "," sign from the sales, Profit , Price per unit so we can make them in integers
 
@@ -74,6 +74,8 @@ update adidas_sales
 set Invoice_date = str_to_date(Invoice_Date,"%m/%d/%Y");
 
 
+
+/* BUISSNESS QUESTIONS */
 
 -- Top 10 cities with highest sales
 
