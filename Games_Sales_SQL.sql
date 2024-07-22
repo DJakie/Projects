@@ -209,10 +209,10 @@ where Critic_Score >90 and Critic_Count>90 and  User_Score>9 ;
 
 -- Share of each region on global market
 
-select sum(NA_Sales)/sum(Global_Sales) as Percentage_Share_of_NA,
-sum(EU_Sales)/sum(Global_Sales) as Percentage_Share_of_EU,
-sum(JP_Sales)/sum(Global_Sales) as Percentage_Share_of_JP,
-sum(Other_Sales)/sum(Global_Sales) as Percentage_Share_of_Others
+select round(sum(NA_Sales)*100/sum(Global_Sales),2) as Percentage_Share_of_NA,
+round(sum(EU_Sales)*100/sum(Global_Sales),2) as Percentage_Share_of_EU,
+round(sum(JP_Sales)*100/sum(Global_Sales),2) as Percentage_Share_of_JP,
+round(sum(Other_Sales)*100/sum(Global_Sales),2) as Percentage_Share_of_Others
 from video_games_sales_as_at_22_dec_2016;
 
 
